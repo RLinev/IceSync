@@ -1,1 +1,1 @@
-# IceSync-master
+In IceSync project there is folder named DB. In this script you will find all neccessary script to create all DB, table and all other needed stuff. After that, please replace Server name in ConnectionString inside appsettings.json in IceSync project.
