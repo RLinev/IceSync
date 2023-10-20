@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>c9de98d9-d845-47bf-8014-118d66b51278</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="DB\database.sql" />
+    <None Remove="Logs\log.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="DB\database.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.9" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.4" />
+    <PackageReference Include="Serilog" Version="3.0.1" />
+    <PackageReference Include="Serilog.Extensions.Hosting" Version="7.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IceCreamCompany.HttpHandler\IceCreamCompanySync.HttpHandler.csproj" />
+    <ProjectReference Include="..\IceCreamCompanySync\IceCreamCompanySync.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Logs\" />
+  </ItemGroup>
+
+</Project>

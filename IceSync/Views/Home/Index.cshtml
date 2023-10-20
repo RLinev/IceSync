@@ -1,0 +1,59 @@
+﻿@using IceCreamCompanySync.HttpHandler.Models;
+@model List<WorkflowModel>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <h4>Workflows</h4>
+    <hr />
+    <table id="workflows" cellpadding="0" cellspacing="0">
+        <tr>
+            <th>Workflow ID </th>
+            <th>Workflow Name</th>
+            <th>Is Active</th>
+            <th>Is Running</th>
+            <th>Multi Exec Behavior</th>
+            <th></th>
+        </tr>
+        @foreach (WorkflowModel customer in Model)
+        {
+            <tr>
+                <td>@customer.WorkflowID</td>
+                <td>@customer.WorkflowName</td>
+                <td>@customer.IsActive</td>
+                <td>@customer.IsRunning</td>
+                <td>@customer.MultiExecBehavior</td>
+                <td><button id="@customer.WorkflowID" class="runBtn" value="@customer.WorkflowID">Run</button>
+                    <img id="invisible_@customer.WorkflowID" class="invisibleImg" style="display: none;" src="" alt="Invisible Image">
+                </td>
+            </tr>
+        }
+    </table>
+
+</div>
+
+<script type="text/javascript">
+    $(".runBtn").on("click", function () {
+        var id = parseInt(this.value);
+        debugger;
+        var img = $("#invisible_"+id);
+        img.attr("src", "/images/loading-gif.gif");
+        img.removeAttr("style");
+        $.ajax({
+            type: "POST",
+            url: "/Home/RunWorkFlow?id="+id,
+            contentType: "application/JSON;",
+            dataType: 'json',
+            success: function (response) {
+                img.attr("src", "/images/check.png");
+                    alert("Workflow run returned " + response.resposne);
+            },
+            error: function (response) {
+                img.attr("src", "/images/exclamation_mark.png");
+                alert("Workflow run failed");
+            }
+        });
+    })
+</script>
