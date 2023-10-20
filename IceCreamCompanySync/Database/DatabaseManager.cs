@@ -44,11 +44,13 @@ namespace CPanel.DistributionWorker.Manager.Database
                 {
                     _logger.LogInformation($"SqlExeption occur while executing. Exeption: {ex.Message}");
                     bSucceed = false;
+                    throw;
                 }
                 catch (Exception ex)
                 {
                     _logger.LogInformation($"Error while executing. Exeption: {ex.Message}");
                     bSucceed = false;
+                    throw;
                 }
                 finally
                 {

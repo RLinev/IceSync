@@ -35,9 +35,8 @@ namespace IceCreamCompanySync
                     //run every 30 minutes
                     await Task.Delay(1800000, stoppingToken);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-
                     throw;
                 }
             }
