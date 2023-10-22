@@ -29,7 +29,7 @@ namespace IceCreamCompanySync
                     _logger.LogInformation("IceCreamBackgrounWorker running at: {time}", DateTimeOffset.Now);
                     var parameters = new List<SqlParameter>()
                     {
-                        new SqlParameter("@Workflows", workflows.ToDataTable<WorkflowModel>())
+                        new SqlParameter("@Workflows", workflows.ToDataWorkflowTable())
                     };
                     _manager.ExecuteNotQuery(_spName, parameters);
                     //run every 30 minutes

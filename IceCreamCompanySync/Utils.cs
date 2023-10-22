@@ -1,4 +1,5 @@
 ﻿using IceCreamCompanySync.HttpHandler.Models;
+using Newtonsoft.Json;
 using System.Collections;
 using System.Data;
 using System.Reflection;
@@ -9,32 +10,21 @@ namespace IceCreamCompanySync
 
     public static class Utils
     {
-        public static DataTable ToDataTable<T>(this IEnumerable<T> source)
+        public static DataTable ToDataWorkflowTable(this IEnumerable<WorkflowModel> source)
         {
-            var item = source.First();
-            var properties = new List<string>();
-
-            foreach (PropertyInfo property in item.GetType().GetProperties())
-            {
-                properties.Add(property.Name);
-            }
-
-            var table = new DataTable();
-            foreach (var prop in properties)
-            {
-                table.Columns.Add(prop);
-            }
+            var result = new DataTable();
+            result.Columns.Add("WorkflowID");
+            result.Columns.Add("WorkflowName");
+            result.Columns.Add("IsActive");
+            result.Columns.Add("IsRunning");
+            result.Columns.Add("MultiExecBehavior");
 
             foreach (var wf in source)
             {
-                var wfValues = new ArrayList();
-                foreach (var prop in properties)
-                {
-                    wfValues.Add(wf.GetType().GetProperty(prop).GetValue(wf));
-                }
-                table.Rows.Add(wfValues);
+                result.Rows.Add(wf.WorkflowID, wf.WorkflowName, wf.IsActive, wf.IsRunning, wf.MultiExecBehavior);
             }
-            return table;
+
+            return result;
         }
     }
 }
